@@ -21,7 +21,7 @@ async def delay_time(ms):
 browser = None
 
 # telegram消息
-message = ''  # 移除初始的消息行
+message = ''
 
 async def login(username, password, panel):
     global browser
@@ -90,11 +90,14 @@ async def main():
             now_utc = format_to_iso(datetime.utcnow())
             now_beijing = format_to_iso(datetime.utcnow() + timedelta(hours=8))
             success_message = f'账号【 {username} 】登录成功！\n'  # 使用换行符
-            message += success_message + '\n'  # 直接换行
+            message += success_message
             print(success_message)
         else:
             message += f'{serviceName}账号 {username} 登录失败，请检查{serviceName}账号和密码是否正确。\n'
             print(f'{serviceName}账号 {username} 登录失败，请检查{serviceName}账号和密码是否正确。')
+
+        # 添加分隔符和换行
+        message += '-' * 28 + '\n'
 
         delay = random.randint(1000, 8000)
         await delay_time(delay)
@@ -108,7 +111,6 @@ async def send_telegram_message(message):
     payload = {
         'chat_id': TELEGRAM_CHAT_ID,
         'text': message,
-        # 删除了 reply_markup
     }
     headers = {
         'Content-Type': 'application/json'
