@@ -106,7 +106,7 @@ async def main():
 async def send_telegram_message(message):
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
-        'chat_id': TELEGRAM_CHAT_ID,
+        'chat_id': {TELEGRAM_CHAT_ID},
         'text': message,
         'reply_markup': {
             'inline_keyboard': [
