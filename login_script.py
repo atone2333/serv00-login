@@ -89,8 +89,8 @@ async def main():
         if is_logged_in:
             now_utc = format_to_iso(datetime.utcnow())
             now_beijing = format_to_iso(datetime.utcnow() + timedelta(hours=8))
-            success_message = f'账号【 {username} 】登录成功！\n' + '-' * 26 \n # 添加分隔线
-            message += success_message
+            success_message = f'账号【 {username} 】登录成功！\n'  # 使用换行符
+            message += success_message + '\n'  # 直接换行
             print(success_message)
         else:
             message += f'{serviceName}账号 {username} 登录失败，请检查{serviceName}账号和密码是否正确。\n'
@@ -99,7 +99,7 @@ async def main():
         delay = random.randint(1000, 8000)
         await delay_time(delay)
 
-    message += f'所有{serviceName}账号登录完成！'  # 这行保留
+    message += f'所有{serviceName}账号登录完成！\n'  # 这行保留
     await send_telegram_message(message)
     print(f'所有{serviceName}账号登录完成！')
 
