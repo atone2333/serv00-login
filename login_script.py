@@ -21,7 +21,7 @@ async def delay_time(ms):
 browser = None
 
 # telegram消息
-message = 'Serv00自动保号\n'
+message = ''  # 移除初始的消息行
 
 async def login(username, password, panel):
     global browser
@@ -68,7 +68,7 @@ async def login(username, password, panel):
 
 async def main():
     global message
-    message = 'Serv00自动保号\n'
+    message = ''  # 移除初始的消息行
 
     try:
         async with aiofiles.open('accounts.json', mode='r', encoding='utf-8') as f:
@@ -89,8 +89,8 @@ async def main():
         if is_logged_in:
             now_utc = format_to_iso(datetime.utcnow())
             now_beijing = format_to_iso(datetime.utcnow() + timedelta(hours=8))
-            success_message = f'账号【 {username} 】登录成功！'
-            message += success_message + '\n'
+            success_message = f'账号【 {username} 】登录成功！\n' + '-' * 40  # 添加分隔线
+            message += success_message
             print(success_message)
         else:
             message += f'{serviceName}账号 {username} 登录失败，请检查{serviceName}账号和密码是否正确。\n'
@@ -98,9 +98,8 @@ async def main():
 
         delay = random.randint(1000, 8000)
         await delay_time(delay)
-        
-    message += f'------'
-    message += f'所有{serviceName}账号登录完成！'
+
+    message += f'所有{serviceName}账号登录完成！'  # 这行保留
     await send_telegram_message(message)
     print(f'所有{serviceName}账号登录完成！')
 
@@ -109,16 +108,7 @@ async def send_telegram_message(message):
     payload = {
         'chat_id': TELEGRAM_CHAT_ID,
         'text': message,
-        'reply_markup': {
-            'inline_keyboard': [
-                [
-                    {
-                        'text': '问题反馈❓',
-                        'url': 'https://t.me/yxjsjl'
-                    }
-                ]
-            ]
-        }
+        # 删除了 reply_markup
     }
     headers = {
         'Content-Type': 'application/json'
