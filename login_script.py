@@ -89,7 +89,7 @@ async def main():
         if is_logged_in:
             now_utc = format_to_iso(datetime.utcnow())
             now_beijing = format_to_iso(datetime.utcnow() + timedelta(hours=8))
-            success_message = f'账号【 {username} 】登录成功！\n' + '-' * 40  # 添加分隔线
+            success_message = f'账号【 {username} 】登录成功！\n' + '-' * 30  # 添加分隔线
             message += success_message
             print(success_message)
         else:
