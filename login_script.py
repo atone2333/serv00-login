@@ -89,7 +89,7 @@ async def main():
         if is_logged_in:
             now_utc = format_to_iso(datetime.utcnow())
             now_beijing = format_to_iso(datetime.utcnow() + timedelta(hours=8))
-            success_message = f'{serviceName}账号【 {username} 】于 {now_beijing}登录成功！'
+            success_message = f'{serviceName}账号【 {username} 】登录成功！'
             message += success_message + '\n'
             print(success_message)
         else:
@@ -99,6 +99,7 @@ async def main():
         delay = random.randint(1000, 8000)
         await delay_time(delay)
         
+    message += f'————————————————————————'
     message += f'所有{serviceName}账号登录完成！'
     await send_telegram_message(message)
     print(f'所有{serviceName}账号登录完成！')
